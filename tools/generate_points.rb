@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby -wKU
 
-require "csv"
+require "../common/data.rb"
 
 def generate(length, n)
   points = []
@@ -15,9 +15,5 @@ end
 if __FILE__ == $PROGRAM_NAME
   length, n, output = *ARGV
   points = generate(length.to_i, n.to_i)
-  CSV.open(output, "wb") do |csv|
-    points.each do |p|
-      csv << p
-    end
-  end
+  DataIO::write_points(output, points)
 end

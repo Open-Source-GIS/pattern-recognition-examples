@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby -wKU
 
-require 'csv'
+require "csv"
+require "../common/data.rb"
 
 def distance(a, b)
   Math::sqrt((a.zip(b).map { |pair| (pair.last - pair.first) ** 2 }).inject(:+))
@@ -37,14 +38,7 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   input, n, output = *ARGV
-  points = CSV.read(input).map { |row| row.map { |i| i.to_f }}
+  points = DataIO::read_points(input)
   clusters = kmeans(points, n.to_i, 0.01)
-  CSV.open(output, "wb") do |csv|
-    clusters.each do |cluster|
-      csv << ["-"]
-      cluster.each do |p|
-        csv << p
-      end
-    end
-  end
+  DataIO::write_clusters(output, clusters)
 end
