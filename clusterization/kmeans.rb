@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby -wKU
 
-require "csv"
 require "../common/data.rb"
 
 def distance(a, b)
@@ -15,7 +14,7 @@ def get_nearest_center(point, centers)
   centers.min_by { |c| distance(point, c) }
 end
 
-def arrange(points, centers)
+def clusterize(points, centers)
   (points.group_by { |p| get_nearest_center(p, centers) }).values
 end
 
@@ -26,7 +25,7 @@ end
 
 def kmeans(points, nclusters, epsilon)
   centers = points.sample(nclusters)
-  clusters = arrange(points, centers)
+  clusters = clusterize(points, centers)
   new_centers = nil
   while not nearly?(centers, new_centers, epsilon)
     centers = new_centers
