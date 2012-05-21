@@ -22,18 +22,23 @@ module DataIO
     points
   end
 
-  def self.write_clusters(filename, clusters)
-    colors = ["blue", "cyan", "green", "red",
-              "yellow", "black", "brown", "orange",
-              "greenyellow", "violet"]
-              
+  def self.get_hex_number
+    num = rand(256).to_s(16)
+    num = "0" + num if (num.length == 1)
+    num
+  end
+
+  def self.get_color
+    "\##{get_hex_number}#{get_hex_number}#{get_hex_number}"
+  end
+
+  def self.write_clusters(filename, clusters)              
     File.open(filename, "w") do |f|
       f.puts "set multiplot"
       f.puts "set xrange [0:100]"
       f.puts "set yrange [0:100]"
       clusters.each do |points|
-        color = colors.pop
-        f.puts "plot '-' linecolor rgb \"#{color}\""
+        f.puts "plot '-' linecolor rgb \"#{get_color}\""
         write_set(f, points)
         f.puts "end"
       end

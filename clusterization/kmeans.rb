@@ -1,14 +1,7 @@
 #!/usr/bin/env ruby -wKU
 
 require "../common/data.rb"
-
-def distance(a, b)
-  Math::sqrt((a.zip(b).map { |pair| (pair.last - pair.first) ** 2 }).inject(:+))
-end
-
-def get_center(points)
-  points.transpose.map { |i| i.inject(:+) / points.length }
-end
+require "../common/misc.rb"
 
 def get_nearest_center(point, centers)
   centers.min_by { |c| distance(point, c) }
@@ -30,7 +23,7 @@ def kmeans(points, nclusters, epsilon)
   while not nearly?(centers, new_centers, epsilon)
     centers = new_centers
     new_centers = clusters.map { |p| get_center(p) }
-    clusters = arrange(points, new_centers)
+    clusters = clusterize(points, new_centers)
   end
   clusters
 end
