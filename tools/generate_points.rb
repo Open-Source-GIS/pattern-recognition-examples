@@ -13,7 +13,9 @@ def generate(length, n)
 end
 
 if __FILE__ == $PROGRAM_NAME
-  length, n, output = *ARGV
+  length = ARGV.shift
+  n      = ARGV.shift
+  output = ARGV.shift
   points = generate(length.to_i, n.to_i)
   DataIO::write_points(output, points)
 end

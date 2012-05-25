@@ -29,7 +29,9 @@ def kmeans(points, nclusters, epsilon)
 end
 
 if __FILE__ == $PROGRAM_NAME
-  input, n, output = *ARGV
+  input =  ARGV.shift
+  n =      ARGV.shift
+  output = ARGV.shift
   points = DataIO::read_points(input)
   clusters = kmeans(points, n.to_i, 0.01)
   DataIO::write_clusters(output, clusters)

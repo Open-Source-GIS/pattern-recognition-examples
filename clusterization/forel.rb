@@ -21,7 +21,9 @@ def forel(points, radius, epsilon)
 end
 
 if __FILE__ == $PROGRAM_NAME
-  input, radius, output = *ARGV
+  input =  ARGV.shift
+  radius = ARGV.shift
+  output = ARGV.shift
   points = DataIO::read_points(input)
   clusters = forel(points, radius.to_f, 0.01)
   DataIO::write_clusters(output, clusters)
